@@ -93,7 +93,7 @@ ALTER TABLE test_2 RENAME TO test;
 --------------------------------------------------------------------------------------
 
 
-CREATE TABLE IF NOT EXISTS ST_SEVERITY (
+CREATE TABLE IF NOT EXISTS SEVERITY (
   ST_SEVERITY_CODE VARCHAR(50),
   ST_SEVERITY_DESC VARCHAR(255)
 );
