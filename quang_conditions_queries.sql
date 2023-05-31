@@ -15,7 +15,6 @@ SELECT LIGHTCOND, COUNT(LIGHTCOND) FROM linked_conditions GROUP BY LIGHTCOND ORD
 ------------------------------------------------------------------------------------------
 
 -- Is speeding, inattention, or DUI more dangerous in terms of serious accidents? 
--- Amber-adjacent queries
 -- Results indicate that speeding is associated with the most serious (2b and 3) collisions.
 
 
@@ -31,7 +30,7 @@ SELECT severitycode, COUNT(*), UNDERINFL FROM linked_conditions WHERE  (UNDERINF
 
 -------------------------------------------------------------------
 
-More road-related queries
+-- More road-related queries
 -- Road conditions that aren't listed here didn't have any 2b / 3 severity collisions
 -- Results suggest that wet roads have the most serious collisions, but that might be because they're the most common road conditions in Seattle 
 	-- About 10% of wet road collisions were of severity 3, while about 5% of ice road collisions were of severity 3
