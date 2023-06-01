@@ -2,17 +2,63 @@
 CREATE VIEW linked_conditions AS SELECT m.OBJECTID, m.SeverityCode, m.UNDERINFL, m.INATTENTIONIND, m.SPEEDING, m.CONDIT_ID, c.WEATHER, c.ROADCOND, c.LIGHTCOND
 FROM collisions as m, conditions as c WHERE m.condit_id = c.condit_id;
 
-------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
 
--- Which light condition is connected to the most accidents in Seattle
--- Results indicate that daylight is the most common light conditions for accidents, maybe because of sunlight blinding + most driving happening during the day
+-- Which light condition is connected to the most collisions in Seattle?
+-- Results indicate that daylight is the most common light condition for accidents, maybe because of sunlight blinding + most driving happening during the day
+-- Create a pie chart out of this table, combine " " and "unknown" into one slice 
 SELECT LIGHTCOND, COUNT(LIGHTCOND) FROM linked_conditions GROUP BY LIGHTCOND ORDER BY COUNT(LIGHTCOND) DESC;
--- or: Create the another view of the previous line, and then SELECT MAX() from that view
+
+
+-- Which light condition is connected to the most serious or fatal collisions?
+-- Results: 'Dark - Street Lights Off' has the highest ratio (2.62%) of serious collisions, followed closely by 'Dawn' (2.60%)
+
+-- Daylight serious percentage
+-- 1.72%
+SELECT ROUND((COUNT(CASE WHEN SEVERITYCODE = '3' OR SEVERITYCODE = '2b' THEN 1 END) * 100.0) / COUNT(*), 2) AS serious_daylight_percentage
+FROM linked_conditions WHERE LIGHTCOND = 'Daylight';
+
+-- Dark - Street Lights On serious percentage
+-- 2.55%
+SELECT ROUND((COUNT(CASE WHEN SEVERITYCODE = '3' OR SEVERITYCODE = '2b' THEN 1 END) * 100.0) / COUNT(*), 2) AS serious_dark_w_lights_percentage
+FROM linked_conditions WHERE LIGHTCOND = 'Dark - Street Lights On';
+
+-- Dark - Street Lights Off serious percentage
+-- 2.62%
+SELECT ROUND((COUNT(CASE WHEN SEVERITYCODE = '3' OR SEVERITYCODE = '2b' THEN 1 END) * 100.0) / COUNT(*), 2) AS serious_dark_lightsoff_percentage
+FROM linked_conditions WHERE LIGHTCOND = 'Dark - Street Lights Off';
+
+-- Dark - No Street Lights serious percentage
+-- 1.83%
+SELECT ROUND((COUNT(CASE WHEN SEVERITYCODE = '3' OR SEVERITYCODE = '2b' THEN 1 END) * 100.0) / COUNT(*), 2) AS serious_dark_no_lights_percentage
+FROM linked_conditions WHERE LIGHTCOND = 'Dark - No Street Lights';
+
+-- Dusk serious percentage
+-- 2.14%
+SELECT ROUND((COUNT(CASE WHEN SEVERITYCODE = '3' OR SEVERITYCODE = '2b' THEN 1 END) * 100.0) / COUNT(*), 2) AS serious_dusk_percentage
+FROM linked_conditions WHERE LIGHTCOND = 'Dusk';
+
+-- Dawn serious percentage
+-- 2.6%
+SELECT ROUND((COUNT(CASE WHEN SEVERITYCODE = '3' OR SEVERITYCODE = '2b' THEN 1 END) * 100.0) / COUNT(*), 2) AS serious_dawn_percentage
+FROM linked_conditions WHERE LIGHTCOND = 'Dawn';
+
+
+--------------------------------------------------------------------------------------------------
+-- Which junction type is associated with the most collisions?
+-- Result: 'Mid-Block (not related to intersection) 
+SELECT JUNCTIONTYPE, COUNT(*) FROM collisions GROUP BY JUNCTIONTYPE ORDER BY COUNT(*) DESC;
+
+--------------------------------------------------------------------------------------------------
 
 
 
 
-------------------------------------------------------------------------------------------
+
+
+--------------------------
+-- EVERYTHING BELOW IS EXTRA || EVERYTHING BELOW IS EXTRA || EVERYTHING BELOW IS EXTRA -- 
+
 
 -- Is speeding, inattention, or DUI more dangerous in terms of serious accidents? 
 -- Results indicate that speeding is associated with the most serious (2b and 3) collisions.
