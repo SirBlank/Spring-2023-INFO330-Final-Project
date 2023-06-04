@@ -23,7 +23,7 @@ FROM collisions;
 
 -- percentages of distracted driving for each severity code
 SELECT c.SeverityCode, s.SEVERITYDESC,
-	   ROUND((COUNT(CASE WHEN (c.INATTENTIONIND = 'Y') THEN 1 END) * 100.0) / COUNT(*), 2) AS DUI_percentage
+	   ROUND((COUNT(CASE WHEN (c.INATTENTIONIND = 'Y') THEN 1 END) * 100.0) / COUNT(*), 2) AS distracted_driving_percentage
 FROM collisions c
 JOIN severity s ON c.SeverityCode = s.SeverityCode
 WHERE c.SEVERITYCODE IN ('3', '2b', '2', '1', '0')
