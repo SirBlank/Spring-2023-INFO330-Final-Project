@@ -4,4 +4,4 @@ You can create your own collisions database by running import.sql and create_col
 
 -Or-
 
-There is an existing collisions database in the repo, and you can access it by unzipping the collisions.zip file.
+There is an existing collisions database in the repo, and you can access it by unzipping the collisions.zip file to the same directory as the repo.
