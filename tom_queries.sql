@@ -25,7 +25,7 @@ FROM collisions col join conditions cond ON col.condit_id = cond.condit_id
 WHERE cond.ROADCOND = 'Wet'
 GROUP BY SDOT_COLCODE)
 
-SELECT dc.SDOTCOLCODE
+SELECT dc.SDOT_COLCODE
 ,st.SDOT_COLDESC
 ,dc.cnt
 ,dc.total
