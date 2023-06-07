@@ -1,5 +1,3 @@
-SELECT * FROM collisions;
-
 -- What is the percentage of collisions involving drivers under the influence?
 SELECT ROUND((COUNT(CASE WHEN UNDERINFL = '1' OR UNDERINFL = 'Y' THEN 1 END) * 100.0) / COUNT(*), 2) AS DUI_percentage
 FROM collisions;
