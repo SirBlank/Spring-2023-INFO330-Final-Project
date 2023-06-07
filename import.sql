@@ -1,2 +1,2 @@
 .mode csv
-.import Collisions.csv collisions
+.import Collisions.csv test
